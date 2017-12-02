@@ -1,0 +1,22 @@
+body{
+	background: skyblue;
+}
+
+.lorem-wrap {
+position:absolute;
+ margin-top: 20%;
+ margin-left: 50%;
+
+height:auto;
+width:auto;
+background-color:#16E82B;
+border:1px solid #222;
+border-radius: 5px;
+}
+
+
+.lorem{
+	padding: 10px;
+	background-color:#EDE091;
+	cursor: pointer; 
+}
