@@ -177,27 +177,41 @@ var Drag = {
 //document.getElementById('res')
 var dndZona = document.getElementById('dndZona');
 dndZona.addEventListener("click", function (e) {
+
   var target = e.target;
 
   var targetClass = target.attributes.getNamedItem('class').value;
   console.log(targetClass)
+
+  if(target && targetClass == "dnd__zona"){
+    console.log("create")
+    var parent = target.childNodes;
+
+
+    var loremText = document.createTextNode("LoremTExt");
+
+    var lorem = document.createElement("div");
+    lorem.classList.add('lorem-wrap');
+    lorem.appendChild(loremText);
+    parent.insertBefore(lorem, target);
+
+  }
+
   if (target && targetClass == "lorem") {
+
     var hasClass = target.classList.contains('active');
 
     if (!hasClass) {
+
       target.classList.add('active');
+
       var parent = target.parentNode;
       var close = document.createTextNode("X");
-      var paragraph = document.createElement("button");
-      paragraph.classList.add('remove__button');
-      paragraph.appendChild(close);
-      parent.insertBefore(paragraph, target);
-    } else {
-
+      var removebutton = document.createElement("button");
+      removebutton.classList.add('remove__button');
+      removebutton.appendChild(close);
+      parent.insertBefore(removebutton, target);
     }
-
-  } else {
-    console.log('else lorem ')
   }
   if (target && targetClass == "remove__button") {
     target.parentNode.remove(target)
@@ -206,10 +220,3 @@ dndZona.addEventListener("click", function (e) {
 
 });
 
-// var removeButton = document.querySelector('.remove__button');
-// removeButton.addEventListener("click", function (e) {
-//   console.log("dsds")
-//   var target = e.target;
-//   target.parentNode.removeChild(target)
-//   console.log('target.parentNode', target.parentNode)
-// });

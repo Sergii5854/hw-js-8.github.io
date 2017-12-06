@@ -1,7 +1,10 @@
 body{
 	background: skyblue;
 }
-
+.dnd__zona{
+	height: 500px;
+	width: 1000px;
+}
 .lorem-wrap {
 
 position:absolute;
