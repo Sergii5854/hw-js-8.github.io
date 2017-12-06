@@ -4,18 +4,28 @@
 <meta charset="UTF-8">
 <title>js s7</title>
 <link href="style.css" rel="stylesheet" type="text/css" >	
-<script src="./script.js"></script> 
+
 </head>
 <body>
 <h1>js course s7 homework 8</h1>
-		<div id="root" class="lorem-wrap">
-		<div class="lorem" id="handle">lorem ipsum</div>
-		</div>
-	
-<script language="javascript">
-var theHandle = document.getElementById("handle");
-var theRoot = document.getElementById("root");
-Drag.init(theHandle, theRoot);
-</script>
 
+<div id="dndZona">
+		<div id="root" class="lorem-wrap">
+			<div class="lorem" id="handle">lorem ipsum</div>	
+		</div>
+			<div id="root1" class="lorem-wrap">
+			<div class="lorem" id="handle1">lorem ipsum</div>	
+		</div>
+</div>
+
+<script src="./script.js"></script>
+<script language="javascript">
+  var theHandle = document.getElementById("handle");
+  var theRoot = document.getElementById("root");
+  Drag.init(theHandle, theRoot);
+  var theRoot1 = document.getElementById("root1");
+  var theHandle1 = document.getElementById("handle1");
+  Drag.init( theRoot1, theHandle1 );
+</script>
+</body>
 </html>
