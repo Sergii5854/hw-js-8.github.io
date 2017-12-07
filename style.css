@@ -1,26 +1,42 @@
-body{
-	background: skyblue;
+body {
+  background: skyblue;
 }
-.dnd__zona{
-	height: 500px;
-	width: 1000px;
+
+.dnd__zona {
+  height: 500px;
+  width: 1000px;
 }
+
 .lorem-wrap {
 
-position:absolute;
- margin-top: 20%;
- margin-left: 50%;
+  position: absolute;
+  margin-top: 20%;
+  margin-left: 50%;
 
-height:auto;
-width:auto;
-background-color:#13E82B;
-border:1px solid #222;
-border-radius: 5px;
+  height: auto;
+  width: auto;
+
+  background-color: green;
+
+  top: 0px;
+  left: 0px;
+
+  z-index: 9999;
+  box-shadow: 6px 6px 5px #888888;
+  border-radius: 6px;
+  border: 1px solid #4f4f4f;
+}
+
+.lorem {
+  padding: 10px;
+  width: 100%;
+  background-color: #aaff66;
+  position: relative;
+  top: 0;
+  border-radius: 6px 6px 0 0;
+  text-align: center;
+  height: 24px;
+  cursor: move
 }
 
 
-.lorem{
-	padding: 10px;
-	background-color:#EDE091;
-	cursor: pointer; 
-}
