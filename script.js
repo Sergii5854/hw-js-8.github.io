@@ -1,62 +1,52 @@
+onload = initDraggable;
+var dndZona = document.getElementById('dndZona');
+var element = document.getElementById('root');
 
-window.onload = initDraggable;
+var elementStyle = element.style;
 
-var draggable = document.getElementById('root');
-var draggable1 = document.getElementById('root1');
-
-function initDraggable() {
-
-  draggable.addEventListener('mousedown', onMouseDown);
-  draggable1.addEventListener('mousedown', onMouseDown);
-
-  draggable.removeEventListener('mousemove', onMouseMove);
-  draggable1.addEventListener('mousedown', onMouseMove);
-
-  draggable.addEventListener('touchstart', onTouch, false);
-  draggable.addEventListener('mousedown', onTouch);
-
-  draggable1.addEventListener('touchstart', onTouch, false);
-  draggable1.addEventListener('touchmove', onTouch, false);
-  draggable1.addEventListener('mousedown', onTouch);
-}
-function onTouch(event) {
+var height = element.offsetHeight;
+var width = element.offsetWidth;
 
 
-  console.log(event  );
-
-  this.posX  = event.changedTouches[0].clientX ;
-  this.posY = event.changedTouches[0].clientY ;
-
-  this.prevLeft = parseInt(this.style.left) || 0;
-  this.prevTop = parseInt(this.style.top) || 0;
-  console.log(event ,  this.prevClientY, "dff" , this.prevLeft);
-  this.addEventListener('touchmove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
+function initDraggable(element) {
+  this.element = element;
+  this.element = 'root';
+  document.getElementById(this.element).addEventListener('mousedown', holdElement, false);
+   // document.body.addEventListener('mousemove', clearListener, false);
+  document.body.addEventListener('touchstart', holdElement, false);
+  document.body.addEventListener('touchend', clearListener, false);
 
 }
 
-function onMouseDown(event) {
-  console.log(event);
-  this.posX = event.clientX;
-  this.posY = event.clientY;
-  this.prevLeft = parseInt(this.style.left) || 0;
-  this.prevTop = parseInt(this.style.top) || 0;
-  this.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-}
+function holdElement(event){
+  this.addEventListener('mousemove',move, true);
+  // document.body.addEventListener('mousedown',move,true);
 
-function onMouseUp(event) {
-  document.addEventListener('touchstart', onMouseUp);
-  document.addEventListener('touchmove', onMouseUp);
-  document.removeEventListener('mouseup', onMouseUp);
-}
-
-function onMouseMove(event) {
-  this.style.left = this.prevLeft + ( event.clientX  - this.posX) + 'px';
-  this.style.top = this.prevTop + (event.clientY - this.posY) + 'px';
+  document.body.addEventListener('touchmove',onTouch,true);
 }
 
 
+function clearListener() {
+  document.body.removeEventListener('touchmove', onTouch, true);
+  document.body.removeEventListener('mouseup', onTouch, true);
+   // this.style.position = "";
+}
+function move(event){
+
+ var epY = event.clientY;
+  var epX = event.clientX;
+
+  elementStyle.top = epY + "px";
+  elementStyle.left = epX +  "px";
+}
+
+function onTouch(touch){
+  this.epY = touch.touches[0].clientY;
+  this.epX = touch.touches[0].clientX;
+
+  elementStyle.top = this.epY + "px";
+  elementStyle.left = this.epX +  "px";
+}
 
 
 var dndZona = document.getElementById('dndZona');

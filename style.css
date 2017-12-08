@@ -8,19 +8,9 @@ body {
 }
 
 .lorem-wrap {
-
   position: absolute;
-  margin-top: 20%;
-  margin-left: 50%;
-
-  height: auto;
-  width: auto;
 
   background-color: green;
-
-  top: 0px;
-  left: 0px;
-
   z-index: 9999;
   box-shadow: 6px 6px 5px #888888;
   border-radius: 6px;
