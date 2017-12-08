@@ -5,15 +5,15 @@ var draggable = document.getElementById('root');
 var draggable1 = document.getElementById('root1');
 
 function initDraggable() {
-  //
-  // draggable.addEventListener('mousedown', onMouseDown);
-  // draggable1.addEventListener('mousedown', onMouseDown);
-  //
-  // draggable.removeEventListener('mousemove', onMouseMove);
-  // draggable1.addEventListener('mousedown', onMouseMove);
+
+  draggable.addEventListener('mousedown', onMouseDown);
+  draggable1.addEventListener('mousedown', onMouseDown);
+
+  draggable.removeEventListener('mousemove', onMouseMove);
+  draggable1.addEventListener('mousedown', onMouseMove);
 
   draggable.addEventListener('touchmove', onTouch, false);
-  draggable1.addEventListener('mousedown', onTouch);
+  draggable.addEventListener('mousedown', onTouch);
   // draggable1.addEventListener('touchstart', onTouch, false);
   draggable1.addEventListener('touchmove', onTouch, false);
   draggable1.addEventListener('mousedown', onTouch);
@@ -35,26 +35,26 @@ function onTouch(event) {
   this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
 }
 
-// function onMouseDown(event) {
-//   console.log(event);
-//   this.prevClientX = event.clientX;
-//   this.prevClientY = event.clientY;
-//   this.prevLeft = parseInt(this.style.left) || 0;
-//   this.prevTop = parseInt(this.style.top) || 0;
-//   this.addEventListener('mousemove', onMouseMove);
-//   document.addEventListener('mouseup', onMouseUp);
-// }
-//
-// function onMouseUp(event) {
-//   document.addEventListener('touchmove', onMouseUp);
-//   document.removeEventListener('mouseup', onMouseUp);
-// }
-//
-// function onMouseMove(event) {
-//   this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
-//   this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
-// }
-//
+function onMouseDown(event) {
+  console.log(event);
+  this.prevClientX = event.clientX;
+  this.prevClientY = event.clientY;
+  this.prevLeft = parseInt(this.style.left) || 0;
+  this.prevTop = parseInt(this.style.top) || 0;
+  this.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+}
+
+function onMouseUp(event) {
+  document.addEventListener('touchmove', onMouseUp);
+  document.removeEventListener('mouseup', onMouseUp);
+}
+
+function onMouseMove(event) {
+  this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
+  this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
+}
+
 
 
 
