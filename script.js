@@ -12,33 +12,33 @@ function initDraggable() {
   draggable.removeEventListener('mousemove', onMouseMove);
   draggable1.addEventListener('mousedown', onMouseMove);
 
-  draggable.addEventListener('touchmove', onTouch, false);
+  draggable.addEventListener('touchstart', onTouch, false);
   draggable.addEventListener('mousedown', onTouch);
-  // draggable1.addEventListener('touchstart', onTouch, false);
+
+  draggable1.addEventListener('touchstart', onTouch, false);
   draggable1.addEventListener('touchmove', onTouch, false);
   draggable1.addEventListener('mousedown', onTouch);
 }
 function onTouch(event) {
 
-  var touch = event.changedTouches[0];
-  console.log(event , touch);
 
-  this.prevClientX  = event.changedTouches[0].clientX ;
-  this.prevClientY = event.changedTouches[0].clientY ;
+  console.log(event  );
+
+  this.posX  = event.changedTouches[0].clientX ;
+  this.posY = event.changedTouches[0].clientY ;
 
   this.prevLeft = parseInt(this.style.left) || 0;
   this.prevTop = parseInt(this.style.top) || 0;
-  this.addEventListener('touchstart', onMouseMove);
+  console.log(event ,  this.prevClientY, "dff" , this.prevLeft);
   this.addEventListener('touchmove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
-  this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
-  this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
+
 }
 
 function onMouseDown(event) {
   console.log(event);
-  this.prevClientX = event.clientX;
-  this.prevClientY = event.clientY;
+  this.posX = event.clientX;
+  this.posY = event.clientY;
   this.prevLeft = parseInt(this.style.left) || 0;
   this.prevTop = parseInt(this.style.top) || 0;
   this.addEventListener('mousemove', onMouseMove);
@@ -46,13 +46,14 @@ function onMouseDown(event) {
 }
 
 function onMouseUp(event) {
+  document.addEventListener('touchstart', onMouseUp);
   document.addEventListener('touchmove', onMouseUp);
   document.removeEventListener('mouseup', onMouseUp);
 }
 
 function onMouseMove(event) {
-  this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
-  this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
+  this.style.left = this.prevLeft + ( event.clientX  - this.posX) + 'px';
+  this.style.top = this.prevTop + (event.clientY - this.posY) + 'px';
 }
 
 
