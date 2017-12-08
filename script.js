@@ -33,11 +33,15 @@ function clearListener() {
 }
 function move(event){
 
- var epY = event.clientY;
-  var epX = event.clientX;
-
-  elementStyle.top = epY + "px";
-  elementStyle.left = epX +  "px";
+  this.epY = event.clientY;
+  this.epX = event.clientX;
+  this.prevLeft = parseInt(elementStyle.left) || 0;
+  this.prevTop = parseInt(elementStyle.top) || 0;
+  elementStyle.top = this.prevLeft + ( event.clientX  - this.epX) + 'px';
+  elementStyle.left = thisprevTop + (event.clientY - this.epY) + 'px';
+console.log(prevLeft)
+  // elementStyle.top = epY + "px";
+  // elementStyle.left = epX +  "px";
 }
 
 function onTouch(touch){
@@ -55,19 +59,20 @@ dndZona.addEventListener("click", function (e) {
   var target = e.target;
 
   var targetClass = target.attributes.getNamedItem('class').value;
-  console.log(targetClass)
+  console.log(targetClass);
 
   if(target && targetClass == "dnd__zona"){
     console.log("create")
-    var parent = target.childNodes;
+    var loremWrap = document.createElement('div');
+    loremWrap.setAttribute('class', 'lorem-wrap');
+    loremWrap.style.top = event.y - event.target.offsetTop  + 'px';
+    loremWrap.style.left = event.x - event.target.offsetLeft  + 'px';
+    target.appendChild(loremWrap);
 
-
-    var loremText = document.createTextNode("LoremTExt");
-
-    var lorem = document.createElement("div");
-    lorem.classList.add('lorem-wrap');
-    lorem.appendChild(loremText);
-    parent.insertBefore(lorem, target);
+    var lorem = document.createElement('div');
+    lorem.setAttribute('class', 'lorem');
+    lorem.innerText = 'lorem';
+    loremWrap.appendChild(lorem)
 
   }
 
@@ -91,6 +96,6 @@ dndZona.addEventListener("click", function (e) {
     target.parentNode.remove(target)
   }
 
-
 });
+
 

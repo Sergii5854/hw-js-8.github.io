@@ -3,30 +3,42 @@ body {
 }
 
 .dnd__zona {
-  height: 500px;
-  width: 500px;
+  position: relative;
+  display: block;
+  margin: 20px auto;
+  z-index: 999;
+  width: 100%;
+  height: 400px;
+
+}
+.set__width_height{
+z-index: -999;
 }
 
 .lorem-wrap {
+  display: flex;
   position: absolute;
-
   background-color: green;
   z-index: 9999;
   box-shadow: 6px 6px 5px #888888;
-  border-radius: 6px;
-  border: 1px solid #4f4f4f;
+
+
 }
 
 .lorem {
   padding: 10px;
-  width: 100%;
   background-color: #aaff66;
   position: relative;
   top: 0;
-  border-radius: 6px 6px 0 0;
   text-align: center;
-  height: 24px;
+
   cursor: move
 }
 
+.remove__button{
+  display: flex;
+  order: 1;
+  background: #FFF;
+  border: none;
+}
 
