@@ -1,6 +1,7 @@
 body {
-  background: skyblue;
-}
+  margin:0;
+  height:100%;
+  background: skyblue;}
 
 .dnd__zona {
   position: relative;
