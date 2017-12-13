@@ -1,20 +1,23 @@
 var dndZona = document.getElementById('dndZona');
-var img = new Image();
-img = './card.jpg';
+
+var img = './card.jpg';
 
 dndZona.style.background = 'url(' + img + ') no-repeat';
 var hiddenImg = document.getElementById('hiddenImg');
-console.log(hiddenImg)
+
 hiddenImg.setAttribute('src', img);
-console.log(hiddenImg.offsetWidth);
+
+
 window.onload = function () {
-  console.log(hiddenImg.offsetWidth);
+
   var heightDND = hiddenImg.offsetHeight;
   var widthDND = hiddenImg.offsetWidth;
   dndZona.style.height = heightDND + "px";
   dndZona.style.width = widthDND + "px";
   hiddenImg.style.display = "none"
-}
+};
+
+
 var element = document.getElementById('active');
 
 var elementStyle = element.style;
@@ -32,7 +35,7 @@ dndZona.addEventListener("click", function (e) {
       var loremWrap = document.createElement('div');
       loremWrap.setAttribute('class', 'lorem-wrap');
       loremWrap.style.top = e.y - target.offsetTop - 10 + 'px';
-      loremWrap.style.left = e.x - target.offsetLeft + 30 + 'px';
+      loremWrap.style.left = e.x - target.offsetLeft - 30 + 'px';
       target.appendChild(loremWrap);
 
       var lorem = document.createElement('div');
@@ -43,15 +46,15 @@ dndZona.addEventListener("click", function (e) {
   } else {
     if (element.id === 'active') {
       element.removeAttribute('id');
-      element = target.parentNode
-      clearListener(element)
+      element = target.parentNode;
+      // clearListener(element)
 
     }
-    target.parentNode.setAttribute('id', 'active')
+    target.parentNode.setAttribute('id', 'active');
+
+    element = target.parentNode;
     console.log(element);
-    element = target.parentNode
-    console.log(element);
-    initDraggable(element)
+
   }
   if (target && targetClass == "lorem") {
 
@@ -72,47 +75,49 @@ dndZona.addEventListener("click", function (e) {
     target.parentNode.remove(target)
   }
 });
-function initDraggable(element) {
-  console.log(element.id, " this", this, document.getElementById(element.id))
-  document.getElementById(element.id).addEventListener('mousedown', holdElement, false);
-  console.log(document.getElementById(element.id).addEventListener('mousemove', holdElement, false));
-  document.body.addEventListener('mouseup', clearListener, false);
-  document.body.addEventListener('touchstart', holdElement, false);
-  document.body.addEventListener('touchend', clearListener, false);
-}
 
-function holdElement(event) {
-  this.addEventListener('mousemove', move, true);
-  // document.body.addEventListener('mousedown', move, true);
-
-  document.body.addEventListener('touchmove', onTouch, true);
-}
-
-
-function clearListener() {
-  document.body.removeEventListener('touchmove', onTouch, true);
-  document.body.removeEventListener('mouseup', onTouch, true);
-  // this.style.position = "";
-}
-
-function move(event) {
-
-  this.epY = event.clientY;
-  this.epX = event.clientX;
-  this.prevLeft = parseInt(elementStyle.left) || 0;
-  this.prevTop = parseInt(elementStyle.top) || 0;
-  elementStyle.top = this.prevLeft + ( event.clientX - this.epX) + 'px';
-  elementStyle.left = this.prevTop + (event.clientY - this.epY) + 'px';
-
-  // elementStyle.top = epY + "px";
-  // elementStyle.left = epX +  "px";
-}
-
-function onTouch(touch) {
-  this.epY = touch.touches[0].clientY;
-  this.epX = touch.touches[0].clientX;
-
-  elementStyle.top = this.epY + "px";
-  elementStyle.left = this.epX + "px";
-}
+//
+// function initDraggable(element) {
+//   console.log(element.id, " this", this, document.getElementById(element.id));
+//   document.getElementById(element.id).addEventListener('mousedown', holdElement, false);
+//   console.log(document.getElementById(element.id).addEventListener('mousemove', holdElement, false));
+//   document.body.addEventListener('mouseup', clearListener, false);
+//   document.body.addEventListener('touchstart', holdElement, false);
+//   document.body.addEventListener('touchend', clearListener, false);
+// }
+//
+// function holdElement(event) {
+//   this.addEventListener('mousemove', move, true);
+//   // document.body.addEventListener('mousedown', move, true);
+//
+//   document.body.addEventListener('touchmove', onTouch, true);
+// }
+//
+//
+// function clearListener() {
+//   document.body.removeEventListener('touchmove', onTouch, true);
+//   document.body.removeEventListener('mouseup', onTouch, true);
+//   // this.style.position = "";
+// }
+//
+// function move(event) {
+//
+//   this.epY = event.clientY;
+//   this.epX = event.clientX;
+//   this.prevLeft = parseInt(elementStyle.left) || 0;
+//   this.prevTop = parseInt(elementStyle.top) || 0;
+//   elementStyle.top = this.prevLeft + ( event.clientX - this.epX) + 'px';
+//   elementStyle.left = this.prevTop + (event.clientY - this.epY) + 'px';
+//
+//   // elementStyle.top = epY + "px";
+//   // elementStyle.left = epX +  "px";
+// }
+//
+// function onTouch(touch) {
+//   this.epY = touch.touches[0].clientY;
+//   this.epX = touch.touches[0].clientX;
+//
+//   elementStyle.top = this.epY + "px";
+//   elementStyle.left = this.epX + "px";
+// }
 
