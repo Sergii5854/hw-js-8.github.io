@@ -54,8 +54,11 @@ dndZona.addEventListener("click", function (e) {
 
     element = target.parentNode;
     console.log(element);
+    element.addEventListener('mousedown', onMouseDown)
 
-  }
+
+
+}
   if (target && targetClass == "lorem") {
 
     var hasClass = target.classList.contains('active');
@@ -76,11 +79,31 @@ dndZona.addEventListener("click", function (e) {
   }
 });
 
-//
+function onMouseDown(event) {
+  console.log('onMouseDown');
+  this.prevClientX = event.clientX;
+  this.prevClientY = event.clientY;
+  this.prevLeft = parseInt(this.style.left) || 0;
+  this.prevTop = parseInt(this.style.top) || 0;
+  this.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+}
+
+function onMouseUp(event) {
+  var draggable = document.getElementById('draggable');
+  draggable.removeEventListener('mousemove', onMouseMove);
+  document.removeEventListener('mouseup', onMouseUp);
+}
+
+function onMouseMove(event) {
+  this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
+  this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
+}
+
 // function initDraggable(element) {
 //   console.log(element.id, " this", this, document.getElementById(element.id));
 //   document.getElementById(element.id).addEventListener('mousedown', holdElement, false);
-//   console.log(document.getElementById(element.id).addEventListener('mousemove', holdElement, false));
+//   console.log(document.getElementById(element.id));
 //   document.body.addEventListener('mouseup', clearListener, false);
 //   document.body.addEventListener('touchstart', holdElement, false);
 //   document.body.addEventListener('touchend', clearListener, false);
@@ -97,7 +120,7 @@ dndZona.addEventListener("click", function (e) {
 // function clearListener() {
 //   document.body.removeEventListener('touchmove', onTouch, true);
 //   document.body.removeEventListener('mouseup', onTouch, true);
-//   // this.style.position = "";
+//
 // }
 //
 // function move(event) {
@@ -109,8 +132,6 @@ dndZona.addEventListener("click", function (e) {
 //   elementStyle.top = this.prevLeft + ( event.clientX - this.epX) + 'px';
 //   elementStyle.left = this.prevTop + (event.clientY - this.epY) + 'px';
 //
-//   // elementStyle.top = epY + "px";
-//   // elementStyle.left = epX +  "px";
 // }
 //
 // function onTouch(touch) {
