@@ -20,10 +20,6 @@ window.onload = function () {
 
 var element = document.getElementById('active');
 
-var elementStyle = element.style;
-var height = element.offsetHeight;
-var width = element.offsetWidth;
-
 dndZona.addEventListener("click", function (e) {
 
   var target = e.target;
@@ -54,11 +50,11 @@ dndZona.addEventListener("click", function (e) {
 
     element = target.parentNode;
     console.log(element);
-    element.addEventListener('mousedown', onMouseDown)
+    element.addEventListener('mousedown', onMouseDown);
+    element.addEventListener('touchstart', holdElement);
 
 
-
-}
+  }
   if (target && targetClass == "lorem") {
 
     var hasClass = target.classList.contains('active');
@@ -86,59 +82,25 @@ function onMouseDown(event) {
   this.prevLeft = parseInt(this.style.left) || 0;
   this.prevTop = parseInt(this.style.top) || 0;
   this.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-}
 
-function onMouseUp(event) {
-  var draggable = document.getElementById('draggable');
-  draggable.removeEventListener('mousemove', onMouseMove);
-  document.removeEventListener('mouseup', onMouseUp);
+
 }
 
 function onMouseMove(event) {
   this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
   this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
 }
+function holdElement(event) {
+  console.log('holdElement');
+  this.prevClientX = event.touches[0].clientX;
+  this.prevClientY = event.touches[0].clientY;
+  this.prevLeft = parseInt(this.style.left) || 0;
+  this.prevTop = parseInt(this.style.top) || 0;
+  this.addEventListener('touchmove', onTouch, false);
+}
+function onTouch(event) {
 
-// function initDraggable(element) {
-//   console.log(element.id, " this", this, document.getElementById(element.id));
-//   document.getElementById(element.id).addEventListener('mousedown', holdElement, false);
-//   console.log(document.getElementById(element.id));
-//   document.body.addEventListener('mouseup', clearListener, false);
-//   document.body.addEventListener('touchstart', holdElement, false);
-//   document.body.addEventListener('touchend', clearListener, false);
-// }
-//
-// function holdElement(event) {
-//   this.addEventListener('mousemove', move, true);
-//   // document.body.addEventListener('mousedown', move, true);
-//
-//   document.body.addEventListener('touchmove', onTouch, true);
-// }
-//
-//
-// function clearListener() {
-//   document.body.removeEventListener('touchmove', onTouch, true);
-//   document.body.removeEventListener('mouseup', onTouch, true);
-//
-// }
-//
-// function move(event) {
-//
-//   this.epY = event.clientY;
-//   this.epX = event.clientX;
-//   this.prevLeft = parseInt(elementStyle.left) || 0;
-//   this.prevTop = parseInt(elementStyle.top) || 0;
-//   elementStyle.top = this.prevLeft + ( event.clientX - this.epX) + 'px';
-//   elementStyle.left = this.prevTop + (event.clientY - this.epY) + 'px';
-//
-// }
-//
-// function onTouch(touch) {
-//   this.epY = touch.touches[0].clientY;
-//   this.epX = touch.touches[0].clientX;
-//
-//   elementStyle.top = this.epY + "px";
-//   elementStyle.left = this.epX + "px";
-// }
+  this.style.left = this.prevLeft + (event.touches[0].clientX - this.prevClientX) + 'px';
+  this.style.top = this.prevTop + (event.touches[0].clientY - this.prevClientY) + 'px';
+}
 
