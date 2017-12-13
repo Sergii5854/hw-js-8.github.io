@@ -1,6 +1,22 @@
 var dndZona = document.getElementById('dndZona');
+var img = new Image();
+img = './card.jpg';
 
+dndZona.style.background = 'url(' + img + ') no-repeat';
+var hiddenImg = document.getElementById('hiddenImg');
+console.log(hiddenImg)
+hiddenImg.setAttribute('src', img);
+console.log(hiddenImg.offsetWidth);
+window.onload = function () {
+  console.log(hiddenImg.offsetWidth);
+  var heightDND = hiddenImg.offsetHeight;
+  var widthDND = hiddenImg.offsetWidth;
+  dndZona.style.height = heightDND + "px";
+  dndZona.style.width = widthDND + "px";
+  hiddenImg.style.display = "none"
+}
 var element = document.getElementById('active');
+
 var elementStyle = element.style;
 var height = element.offsetHeight;
 var width = element.offsetWidth;
@@ -57,9 +73,10 @@ dndZona.addEventListener("click", function (e) {
   }
 });
 function initDraggable(element) {
-  element.addEventListener('mousedown', holdElement, false);
-  // console.log(element.addEventListener('mousedown', holdElement, false));
-  // document.body.addEventListener('mousemove', clearListener, false);
+  console.log(element.id, " this", this, document.getElementById(element.id))
+  document.getElementById(element.id).addEventListener('mousedown', holdElement, false);
+  console.log(document.getElementById(element.id).addEventListener('mousemove', holdElement, false));
+  document.body.addEventListener('mouseup', clearListener, false);
   document.body.addEventListener('touchstart', holdElement, false);
   document.body.addEventListener('touchend', clearListener, false);
 }
@@ -77,6 +94,7 @@ function clearListener() {
   document.body.removeEventListener('mouseup', onTouch, true);
   // this.style.position = "";
 }
+
 function move(event) {
 
   this.epY = event.clientY;
@@ -97,6 +115,4 @@ function onTouch(touch) {
   elementStyle.top = this.epY + "px";
   elementStyle.left = this.epX + "px";
 }
-
-
 

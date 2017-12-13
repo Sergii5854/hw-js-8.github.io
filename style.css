@@ -8,10 +8,6 @@ body {
   display: block;
   margin: 20px auto;
   z-index: 999;
-  width: 800px;
-  height: 482px;
-  background: url(./card.jpg) no-repeat;
-
 }
 .set__width_height{
 z-index: -999;
