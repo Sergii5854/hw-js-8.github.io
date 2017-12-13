@@ -7,7 +7,6 @@ var hiddenImg = document.getElementById('hiddenImg');
 
 hiddenImg.setAttribute('src', img);
 
-
 window.onload = function () {
 
   var heightDND = hiddenImg.offsetHeight;
@@ -16,9 +15,6 @@ window.onload = function () {
   dndZona.style.width = widthDND + "px";
   hiddenImg.style.display = "none"
 };
-
-
-var element = document.getElementById('active');
 
 dndZona.addEventListener("click", function (e) {
 
@@ -40,27 +36,22 @@ dndZona.addEventListener("click", function (e) {
       loremWrap.appendChild(lorem)
     }
   } else {
+   var element = target.parentNode;
     if (element.id === 'active') {
       element.removeAttribute('id');
-      element = target.parentNode;
-      // clearListener(element)
-
     }
+
     target.parentNode.setAttribute('id', 'active');
 
-    element = target.parentNode;
-    console.log(element);
     element.addEventListener('mousedown', onMouseDown);
     element.addEventListener('touchstart', holdElement);
-
-
   }
+
   if (target && targetClass == "lorem") {
 
     var hasClass = target.classList.contains('active');
 
     if (!hasClass) {
-
       target.classList.add('active');
       var parent = target.parentNode;
       var close = document.createTextNode("X");
@@ -70,20 +61,20 @@ dndZona.addEventListener("click", function (e) {
       parent.insertBefore(removebutton, target);
     }
   }
+
   if (target && targetClass == "remove__button") {
     target.parentNode.remove(target)
   }
+
 });
 
+
 function onMouseDown(event) {
-  console.log('onMouseDown');
   this.prevClientX = event.clientX;
   this.prevClientY = event.clientY;
   this.prevLeft = parseInt(this.style.left) || 0;
   this.prevTop = parseInt(this.style.top) || 0;
   this.addEventListener('mousemove', onMouseMove);
-
-
 }
 
 function onMouseMove(event) {
@@ -91,7 +82,7 @@ function onMouseMove(event) {
   this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
 }
 function holdElement(event) {
-  console.log('holdElement');
+
   this.prevClientX = event.touches[0].clientX;
   this.prevClientY = event.touches[0].clientY;
   this.prevLeft = parseInt(this.style.left) || 0;
@@ -99,7 +90,6 @@ function holdElement(event) {
   this.addEventListener('touchmove', onTouch, false);
 }
 function onTouch(event) {
-
   this.style.left = this.prevLeft + (event.touches[0].clientX - this.prevClientX) + 'px';
   this.style.top = this.prevTop + (event.touches[0].clientY - this.prevClientY) + 'px';
 }
