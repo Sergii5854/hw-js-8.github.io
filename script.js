@@ -11,18 +11,17 @@ window.onload = function () {
 
   var heightDND = hiddenImg.offsetHeight;
   var widthDND = hiddenImg.offsetWidth;
-  dndZona.style.height = heightDND + "px";
-  dndZona.style.width = widthDND + "px";
-  hiddenImg.style.display = "none"
+  dndZona.style.height = heightDND + 'px';
+  dndZona.style.width = widthDND + 'px';
+  hiddenImg.style.display = 'none';
 
-
-  dndZona.addEventListener("click", function (e) {
-
+  dndZona.addEventListener('mousedown', function (e) {
+    console.log('sdsd');
     var target = e.target;
     var targetClass = target.attributes.getNamedItem('class').value;
-    if (target && targetClass === "dnd__zona") {
+    if (target && targetClass === 'dnd__zona') {
 
-      if (document.querySelectorAll(".lorem-wrap").length < 4) {
+      if (document.querySelectorAll('.lorem-wrap').length < 4) {
 
         var loremWrap = document.createElement('div');
         loremWrap.setAttribute('class', 'lorem-wrap');
@@ -46,26 +45,24 @@ window.onload = function () {
 
       element.addEventListener('mousedown', onMouseDown, false);
       // element.addEventListener('touchstart', holdElement);
-
-
     }
 
-    if (target && targetClass == "lorem") {
+    if (target && targetClass == 'lorem') {
 
       var hasClass = target.classList.contains('active');
 
       if (!hasClass) {
         target.classList.add('active');
         var parent = target.parentNode;
-        var close = document.createTextNode("X");
-        var removebutton = document.createElement("button");
+        var close = document.createTextNode('X');
+        var removebutton = document.createElement('button');
         removebutton.classList.add('remove__button');
         removebutton.appendChild(close);
         parent.insertBefore(removebutton, target);
       }
     }
 
-    if (target && targetClass == "remove__button") {
+    if (target && targetClass == 'remove__button') {
       target.parentNode.remove(target)
     }
 
@@ -83,12 +80,13 @@ window.onload = function () {
 
   function onMouseMove(event) {
 
-    if (this.style.left > "0px" && this.style.left <= ( widthDND - 79 + 'px') ) {
+    if (this.style.left > '0px' && this.style.left <= ( widthDND - 79 + 'px')) {
       this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
     }
-    if (this.style.top > "0px" && this.style.top < (heightDND - 38 + 'px') ) {
+    if (this.style.top > '0px' && this.style.top < (heightDND - 38 + 'px')) {
       this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
     }
+
   }
 
   function holdElement(event) {
@@ -101,10 +99,10 @@ window.onload = function () {
   }
 
   function onTouch(event) {
-    if (this.style.left > "0px" && this.style.left < ( widthDND - 79 + 'px') ) {
+    if (this.style.left > '0px' && this.style.left < ( widthDND - 79 + 'px')) {
       this.style.left = this.prevLeft + (event.touches[0].clientX - this.prevClientX) + 'px';
     }
-    if (this.style.top > "0px" && this.style.top < heightDND - 38 + 'px') {
+    if (this.style.top > '0px' && this.style.top < heightDND - 38 + 'px') {
       this.style.top = this.prevTop + (event.touches[0].clientY - this.prevClientY) + 'px';
     }
   }
