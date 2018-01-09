@@ -1,4 +1,5 @@
 var dndZona = document.getElementById('dndZona');
+var body = document.body;
 
 var img = './card.jpg';
 
@@ -15,8 +16,10 @@ window.onload = function () {
   dndZona.style.width = widthDND + 'px';
   hiddenImg.style.display = 'none';
 
-  dndZona.addEventListener('mousedown', function (e) {
-    console.log('sdsd');
+  dndZona.addEventListener('mousedown', mainListener, false);
+
+ function mainListener(e) {
+
     var target = e.target;
     var targetClass = target.attributes.getNamedItem('class').value;
     if (target && targetClass === 'dnd__zona') {
@@ -36,15 +39,18 @@ window.onload = function () {
       }
     } else {
       var element = target.parentNode;
-      if (element.id === 'active') {
-        element.removeAttribute('id');
-      }
+      document.querySelectorAll('.lorem-wrap').forEach(function (data) {
+        data.removeAttribute('id');
+      });
 
 
       target.parentNode.setAttribute('id', 'active');
 
       element.addEventListener('mousedown', onMouseDown, false);
-      // element.addEventListener('touchstart', holdElement);
+      document.body.addEventListener('mouseup', removeEvent(element), false);
+
+      element.addEventListener('touchstart', holdElement);
+      document.body.addEventListener('touchstart', removeEvent, false);
     }
 
     if (target && targetClass == 'lorem') {
@@ -66,16 +72,28 @@ window.onload = function () {
       target.parentNode.remove(target)
     }
 
-  });
+  };
+
+  function removeEvent(element) {
+
+
+    dndZona.removeEventListener('mousemove', mainListener, true);
+    element.removeEventListener('mousemove', onMouseDown, true);
+
+    element.removeEventListener('mousemove', onMouseMove, true);
+    document.body.removeEventListener('mousemove', onMouseMove, true);
+    element.removeEventListener('mousemove', holdElement, true);
+    document.body.removeEventListener('mousemove', onTouch, true);
+  }
 
 
   function onMouseDown(event) {
-
     this.prevClientX = event.clientX;
     this.prevClientY = event.clientY;
     this.prevLeft = parseInt(this.style.left) || 0;
     this.prevTop = parseInt(this.style.top) || 0;
-    this.addEventListener('mousemove', onMouseMove);
+    this.addEventListener('mousemove', onMouseMove, false);
+
   }
 
   function onMouseMove(event) {
