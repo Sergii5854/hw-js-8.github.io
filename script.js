@@ -43,14 +43,11 @@ window.onload = function () {
         data.removeAttribute('id');
       });
 
-
       target.parentNode.setAttribute('id', 'active');
 
-      element.addEventListener('mousedown', onMouseDown, false);
-      document.body.addEventListener('mouseup', removeEvent(element), false);
-
+      element.addEventListener('mousedown', onMouseDown);
       element.addEventListener('touchstart', holdElement);
-      document.body.addEventListener('touchstart', removeEvent, false);
+
     }
 
     if (target && targetClass == 'lorem') {
@@ -68,33 +65,22 @@ window.onload = function () {
       }
     }
 
-    if (target && targetClass == 'remove__button') {
+
+   if (target && targetClass == 'remove__button') {
       target.parentNode.remove(target)
     }
 
   };
 
-  function removeEvent(element) {
-
-
-    dndZona.removeEventListener('mousemove', mainListener, true);
-    element.removeEventListener('mousemove', onMouseDown, true);
-
-    element.removeEventListener('mousemove', onMouseMove, true);
-    document.body.removeEventListener('mousemove', onMouseMove, true);
-    element.removeEventListener('mousemove', holdElement, true);
-    document.body.removeEventListener('mousemove', onTouch, true);
-  }
-
-
-  function onMouseDown(event) {
+   function onMouseDown(event) {
     this.prevClientX = event.clientX;
     this.prevClientY = event.clientY;
     this.prevLeft = parseInt(this.style.left) || 0;
     this.prevTop = parseInt(this.style.top) || 0;
-    this.addEventListener('mousemove', onMouseMove, false);
+    this.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', removeEvent(this),false );
 
-  }
+   }
 
   function onMouseMove(event) {
 
@@ -104,7 +90,13 @@ window.onload = function () {
     if (this.style.top > '0px' && this.style.top < (heightDND - 38 + 'px')) {
       this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
     }
+  }
 
+  function removeEvent(target) {
+    console.log(target);
+    target.removeEventListener('mousemove', onMouseDown);
+    target.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', removeEvent);
   }
 
   function holdElement(event) {
