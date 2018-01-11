@@ -39,14 +39,17 @@ window.onload = function () {
       }
     } else {
       var element = target.parentNode;
+      element;
       document.querySelectorAll('.lorem-wrap').forEach(function (data) {
         data.removeAttribute('id');
+        removeEvent(data)
       });
 
-      target.parentNode.setAttribute('id', 'active');
-
+      element.setAttribute('id', 'active');
       element.addEventListener('mousedown', onMouseDown);
+
       element.addEventListener('touchstart', holdElement);
+
 
     }
 
@@ -65,7 +68,6 @@ window.onload = function () {
       }
     }
 
-
    if (target && targetClass == 'remove__button') {
       target.parentNode.remove(target)
     }
@@ -78,7 +80,7 @@ window.onload = function () {
     this.prevLeft = parseInt(this.style.left) || 0;
     this.prevTop = parseInt(this.style.top) || 0;
     this.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', removeEvent(this),false );
+    document.addEventListener('mouseup', removeEvent(this) );
 
    }
 
@@ -93,9 +95,8 @@ window.onload = function () {
   }
 
   function removeEvent(target) {
-    console.log(target);
-    target.removeEventListener('mousemove', onMouseDown);
-    target.removeEventListener('mousemove', onMouseMove);
+    target.removeEventListener('mousedown', onMouseDown);
+    target.removeEventListener('mousemove', onMouseMove, true);
     document.removeEventListener('mouseup', removeEvent);
   }
 
