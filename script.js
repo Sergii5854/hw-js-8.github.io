@@ -42,6 +42,7 @@ window.onload = function () {
 
       document.querySelectorAll('.lorem-wrap').forEach(function (data) {
         data.removeAttribute('id');
+        // data.childNodes.removeAttribute('id')
         removeEvent(data)
       });
 
@@ -72,7 +73,7 @@ window.onload = function () {
       target.parentNode.remove(target)
     }
 
-  };
+  }
 
   function onMouseDown() {
     console.log("onMouseDown Function ",event.target,  event.target.parentNode, "this", this);
@@ -97,9 +98,22 @@ window.onload = function () {
 
   function removeEvent(target) {
     console.log("target",target);
-    // target.removeEventListener('mousedown', onMouseDown);
-    target.removeEventListener('mousemove', onMouseMove, true);
+     // target.childNodes.removeEventListener('mousedown', onMouseDown);
+    // target.childNodes.removeEventListener('mousemove', onMouseMove, true);
     document.removeEventListener('mouseup', removeEvent);
+
+    document.querySelectorAll('.lorem-wrap').forEach(function (data) {
+      // console.log("data", data);
+      data.removeEventListener('mousemove', onMouseMove, true);
+      // data.removeEventListener('mousedown', onMouseDown);
+      if(data.querySelector(".lorem")){
+        data.removeEventListener('mousedown', onMouseDown, true);
+        data.querySelector(".lorem").removeEventListener('mousedown', onMouseDown, true);
+      }
+
+      // console.log(data.childNodes);
+
+    });
   }
 
   function holdElement(event) {
