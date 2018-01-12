@@ -18,7 +18,7 @@ window.onload = function () {
 
   dndZona.addEventListener('mousedown', mainListener, false);
 
- function mainListener(e) {
+  function mainListener(e) {
 
     var target = e.target;
     var targetClass = target.attributes.getNamedItem('class').value;
@@ -39,7 +39,7 @@ window.onload = function () {
       }
     } else {
       var element = target.parentNode;
-      element;
+
       document.querySelectorAll('.lorem-wrap').forEach(function (data) {
         data.removeAttribute('id');
         removeEvent(data)
@@ -47,7 +47,7 @@ window.onload = function () {
 
       element.setAttribute('id', 'active');
       element.addEventListener('mousedown', onMouseDown);
-
+      console.log("addEventListener onMouseDown ", element);
       element.addEventListener('touchstart', holdElement);
 
 
@@ -68,21 +68,22 @@ window.onload = function () {
       }
     }
 
-   if (target && targetClass == 'remove__button') {
+    if (target && targetClass == 'remove__button') {
       target.parentNode.remove(target)
     }
 
   };
 
-   function onMouseDown(event) {
+  function onMouseDown() {
+    console.log("onMouseDown Function ",event.target,  event.target.parentNode, "this", this);
     this.prevClientX = event.clientX;
     this.prevClientY = event.clientY;
     this.prevLeft = parseInt(this.style.left) || 0;
     this.prevTop = parseInt(this.style.top) || 0;
     this.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', removeEvent(this) );
+    document.addEventListener('mouseup', removeEvent.bind(this));
 
-   }
+  }
 
   function onMouseMove(event) {
 
@@ -95,7 +96,8 @@ window.onload = function () {
   }
 
   function removeEvent(target) {
-    target.removeEventListener('mousedown', onMouseDown);
+    console.log("target",target);
+    // target.removeEventListener('mousedown', onMouseDown);
     target.removeEventListener('mousemove', onMouseMove, true);
     document.removeEventListener('mouseup', removeEvent);
   }
