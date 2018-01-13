@@ -9,7 +9,7 @@ var hiddenImg = document.getElementById('hiddenImg');
 hiddenImg.setAttribute('src', img);
 
 window.onload = function () {
-
+  document.addEventListener('mouseup', removeEvent,false);
   var heightDND = hiddenImg.offsetHeight;
   var widthDND = hiddenImg.offsetWidth;
   dndZona.style.height = heightDND + 'px';
@@ -40,16 +40,13 @@ window.onload = function () {
     } else {
       var element = target.parentNode;
 
-      document.querySelectorAll('.lorem-wrap').forEach(function (data) {
-        data.removeAttribute('id');
-        // data.childNodes.removeAttribute('id')
-        removeEvent(data)
-      });
+
 
       element.setAttribute('id', 'active');
-      element.addEventListener('mousedown', onMouseDown);
-      console.log("addEventListener onMouseDown ", element);
-      element.addEventListener('touchstart', holdElement);
+      // console.dir(element)
+      element.addEventListener('mousedown', onMouseDown, false);
+      // console.log("addEventListener onMouseDown ", element);
+      element.addEventListener('touchstart', holdElement, false);
 
 
     }
@@ -75,19 +72,20 @@ window.onload = function () {
 
   }
 
-  function onMouseDown() {
-    console.log("onMouseDown Function ",event.target,  event.target.parentNode, "this", this);
+  function onMouseDown(event) {
+    // console.log("onMouseDown Function ",event.target,  event.target.parentNode, "this", this);
     this.prevClientX = event.clientX;
     this.prevClientY = event.clientY;
     this.prevLeft = parseInt(this.style.left) || 0;
     this.prevTop = parseInt(this.style.top) || 0;
-    this.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', removeEvent.bind(this));
 
+    event.target.parentNode.addEventListener('mousemove', onMouseMove,false);
   }
 
   function onMouseMove(event) {
-
+    console.log(event.target);
+    console.log(event.target.parentNode.getAttribute('id'));
+    if(event.target.parentNode.getAttribute('id') === 'active') {
     if (this.style.left > '0px' && this.style.left <= ( widthDND - 79 + 'px')) {
       this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
     }
@@ -95,25 +93,33 @@ window.onload = function () {
       this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
     }
   }
+  }
 
-  function removeEvent(target) {
-    console.log("target",target);
-     // target.childNodes.removeEventListener('mousedown', onMouseDown);
-    // target.childNodes.removeEventListener('mousemove', onMouseMove, true);
-    document.removeEventListener('mouseup', removeEvent);
+  function removeEvent(event) {
+    console.log( event.target.parentNode,  this);
+    event.target.parentNode.removeEventListener('mousedown', onMouseDown);
+    event.target.parentNode.removeEventListener('mousemove', onMouseMove, true);
+    document.removeEventListener('mouseup', removeEvent, true);
 
     document.querySelectorAll('.lorem-wrap').forEach(function (data) {
-      // console.log("data", data);
-      data.removeEventListener('mousemove', onMouseMove, true);
-      // data.removeEventListener('mousedown', onMouseDown);
-      if(data.querySelector(".lorem")){
-        data.removeEventListener('mousedown', onMouseDown, true);
-        data.querySelector(".lorem").removeEventListener('mousedown', onMouseDown, true);
-      }
+      data.removeAttribute('id');
+
+    });
+
+    // document.removeEventListener('mouseup', removeEvent);
+    //
+    // document.querySelectorAll('.lorem-wrap').forEach(function (data) {
+    //   // console.log("data", data);
+    //   data.removeEventListener('mousemove', onMouseMove, true);
+    //   // data.removeEventListener('mousedown', onMouseDown);
+    //   if(data.querySelector(".lorem")){
+    //     data.removeEventListener('mousedown', onMouseDown, true);
+    //     data.querySelector(".lorem").removeEventListener('mousedown', onMouseDown, true);
+    //   }
 
       // console.log(data.childNodes);
 
-    });
+    // });
   }
 
   function holdElement(event) {
