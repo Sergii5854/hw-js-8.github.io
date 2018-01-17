@@ -75,15 +75,36 @@ window.onload = function () {
   }
 
   function onMouseMove(event) {
-
     if (event.target.parentNode.getAttribute('id') === 'active') {
-      if (this.style.left > '0px' && this.style.left <= ( widthDND - 79 + 'px')) {
-        this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
+      this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
+      this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
+
+
+      console.group("move");
+      console.log('this.style.top',this.style.top);
+      console.log( 'event.clientY', event.clientY);
+      console.log('this.style.left',this.style.left);
+      console.log( 'event.clientX', event.clientX);
+      console.log("top", this.style.top < '0px');
+      console.log( "left", this.style.left < '0px');
+      console.log( "right", this.style.left > ( widthDND - 19 + 'px'));
+      console.log( "bottom", this.style.top > (heightDND - 38 + 'px'));
+      console.groupEnd();
+      if (this.style.left < '0px') {
+        this.style.left = '0px';
       }
-      if (this.style.top > '0px' && this.style.top < (heightDND - 38 + 'px')) {
-        this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
+      if (event.clientY < 0) {
+        this.style.top = '0px';
+      }
+
+      if (this.style.left > ( widthDND - 80 + 'px')) {
+        this.style.left = widthDND - 80 + 'px'
+      }
+      if (this.style.top > (heightDND - 38 + 'px')) {
+        this.style.top = heightDND - 38 + 'px';
       }
     }
+
   }
 
   function removeEvent(event) {
@@ -91,7 +112,10 @@ window.onload = function () {
     event.target.parentNode.removeEventListener('mousedown', onMouseDown);
     event.target.parentNode.removeEventListener('mousemove', onMouseMove, true);
     document.removeEventListener('mouseup', removeEvent, true);
+    clearAllActive()
+  }
 
+  function clearAllActive() {
     document.querySelectorAll('.lorem-wrap').forEach(function (data) {
       data.removeAttribute('id');
     });

@@ -1,7 +1,8 @@
 body {
-  margin:0;
-  height:100%;
-  background: skyblue;}
+  margin: 0;
+  height: 100%;
+  background: skyblue;
+}
 
 .dnd__zona {
   position: relative;
@@ -9,8 +10,9 @@ body {
   margin: 20px auto;
   z-index: 999;
 }
-.set__width_height{
-z-index: -999;
+
+.set__width_height {
+  z-index: -999;
 }
 
 .lorem-wrap {
@@ -19,8 +21,6 @@ z-index: -999;
   background-color: green;
   z-index: 9999;
   box-shadow: 6px 6px 5px #888888;
-
-
 }
 
 .lorem {
@@ -29,11 +29,10 @@ z-index: -999;
   position: relative;
   top: 0;
   text-align: center;
-
   cursor: move
 }
 
-.remove__button{
+.remove__button {
   display: flex;
   order: 1;
   background: #FFF;
