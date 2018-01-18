@@ -85,24 +85,25 @@ window.onload = function () {
       console.log( 'event.clientY', event.clientY);
       console.log('this.style.left',this.style.left);
       console.log( 'event.clientX', event.clientX);
-      console.log("top", this.style.top < '0px');
-      console.log( "left", this.style.left < '0px');
-      console.log( "right", this.style.left > ( widthDND - 19 + 'px'));
-      console.log( "bottom", this.style.top > (heightDND - 38 + 'px'));
+      console.log("top", this.style.top < '0px', this.style.top);
+      console.log( "left", this.style.left < '0px', this.style.left);
+      console.log( "right", this.style.left > ( widthDND - 80 + 'px'),widthDND);
+      console.log( "bottom", this.style.top > (heightDND - 38 + 'px'), heightDND);
       console.groupEnd();
-      if (this.style.left < '0px') {
+
+      if (parseInt(this.style.left) < 0) {
         this.style.left = '0px';
       }
-      if (event.clientY < 0) {
-        this.style.top = '0px';
+      if (parseInt(this.style.top)  < 0) {
+        this.style.top = '3px';
       }
 
-      if (this.style.left > ( widthDND - 80 + 'px')) {
-        this.style.left = widthDND - 80 + 'px'
-      }
-      if (this.style.top > (heightDND - 38 + 'px')) {
-        this.style.top = heightDND - 38 + 'px';
-      }
+      // if (this.style.left > widthDND - 78 + 'px') {
+      //   this.style.left = widthDND - 78 + 'px'
+      // }
+      // if (this.style.top > heightDND - 38 + 'px') {
+      //   this.style.top = heightDND - 38 + 'px';
+      // }
     }
 
   }
