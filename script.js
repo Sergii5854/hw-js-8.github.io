@@ -79,31 +79,22 @@ window.onload = function () {
       this.style.left = this.prevLeft + (event.clientX - this.prevClientX) + 'px';
       this.style.top = this.prevTop + (event.clientY - this.prevClientY) + 'px';
 
-
-      console.group("move");
-      console.log('this.style.top',this.style.top);
-      console.log( 'event.clientY', event.clientY);
-      console.log('this.style.left',this.style.left);
-      console.log( 'event.clientX', event.clientX);
-      console.log("top", this.style.top < '0px', this.style.top);
-      console.log( "left", this.style.left < '0px', this.style.left);
-      console.log( "right", this.style.left > ( widthDND - 80 + 'px'),widthDND);
-      console.log( "bottom", this.style.top > (heightDND - 38 + 'px'), heightDND);
-      console.groupEnd();
-
-      if (parseInt(this.style.left) < 0) {
-        this.style.left = '0px';
-      }
-      if (parseInt(this.style.top)  < 0) {
+      if (parseInt(this.style.top) < 0) {
         this.style.top = '3px';
       }
 
-      // if (this.style.left > widthDND - 78 + 'px') {
-      //   this.style.left = widthDND - 78 + 'px'
-      // }
-      // if (this.style.top > heightDND - 38 + 'px') {
-      //   this.style.top = heightDND - 38 + 'px';
-      // }
+      if (parseInt(this.style.left) > widthDND - 78) {
+        this.style.left = widthDND - 78 + 'px'
+      }
+
+      if (parseInt(this.style.top) > heightDND - 38) {
+        this.style.top = heightDND - 38 + 'px';
+      }
+      if (parseInt(this.style.left) < 0) {
+        this.style.left = '0px';
+      }
+
+
     }
 
   }
