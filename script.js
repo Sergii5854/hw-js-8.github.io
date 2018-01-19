@@ -93,8 +93,6 @@ window.onload = function () {
       if (parseInt(this.style.left) < 0) {
         this.style.left = '0px';
       }
-
-
     }
 
   }
@@ -123,12 +121,24 @@ window.onload = function () {
   }
 
   function onTouch(event) {
-    if (this.style.left > '0px' && this.style.left < ( widthDND - 79 + 'px')) {
-      this.style.left = this.prevLeft + (event.touches[0].clientX - this.prevClientX) + 'px';
-    }
-    if (this.style.top > '0px' && this.style.top < heightDND - 38 + 'px') {
-      this.style.top = this.prevTop + (event.touches[0].clientY - this.prevClientY) + 'px';
-    }
-  }
 
+      this.style.left = this.prevLeft + (event.touches[0].clientX - this.prevClientX) + 'px';
+      this.style.top = this.prevTop + (event.touches[0].clientY - this.prevClientY) + 'px';
+
+
+    if (parseInt(this.style.top) < 0) {
+      this.style.top = '3px';
+    }
+    if (parseInt(this.style.left) > widthDND - 78) {
+      this.style.left = widthDND - 78 + 'px'
+    }
+
+    if (parseInt(this.style.top) > heightDND - 38) {
+      this.style.top = heightDND - 38 + 'px';
+    }
+    if (parseInt(this.style.left) < 0) {
+      this.style.left = '0px';
+    }
+
+  }
 };
